@@ -12,8 +12,8 @@
 
 import groovy.json.JsonSlurper
 
-@Library('SharedLibrary') _
-@Library('SpChartersSharedLibrary') _spchlib
+//@Library('SharedLibrary') _
+//@Library('SpChartersSharedLibrary') _spchlib
 
 
 node('Generic') {
