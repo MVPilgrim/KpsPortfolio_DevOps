@@ -26,6 +26,6 @@ node('Generic') {
       echo "-----------------------------------------------------------------------------------------------------------------------";
 	}
   } catch (Exception e) {
-    echo "Exception caught: " + e.getMessage()";
+    echo "Exception caught: " + e.getMessage();
   }
 }
