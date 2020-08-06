@@ -13,19 +13,36 @@
 import groovy.json.JsonSlurper
 
 //@Library('SharedLibrary') _
-//@Library('SpChartersSharedLibrary') _spchlib
+@Library('KpsPortfolioSharedLibrary') _kpspflib
 
 
 node('Generic') {
   try {
     jobName = JOB_BASE_NAME;
-    stage("Build Init ${jobName}") {
-      echo "";
-      echo "-----------------------------------------------------------------------------------------------------------------------";
-      echo "----------------------------------------------------> Build Init. <----------------------------------------------------";
-      echo "-----------------------------------------------------------------------------------------------------------------------";
-	}
+    initStage();
+	cloneUIStage();
   } catch (Exception e) {
     echo "Exception caught: " + e.getMessage();
+  }
+}
+
+
+/*
+ * Intialize stage.
+*/
+def initStage() {
+  stageName = "Build Init $jobName";
+  stage("$stageName") {
+    DisplayStageBanner(stageName);
+  }
+}
+
+/*
+ * Clone UI Stage.
+*/
+def cloneUIStage() {
+  stageName = "Clone UI"
+  stage("$stageName") {
+    DisplayStageBanner("$stageName");
   }
 }
