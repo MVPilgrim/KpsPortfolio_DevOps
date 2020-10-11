@@ -34,7 +34,7 @@ def initStage() {
   stageName = "Build Init $jobName";
   stage("$stageName") {
     DisplayStageBanner(stageName);
-    whoami
+    sh "whoami"
     env.PATH="$env.PATH:/home/ec2-user/.nvm/versions/node/v11.0.0/bin";
   }
 }
