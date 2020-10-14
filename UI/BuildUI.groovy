@@ -21,7 +21,7 @@ node('Generic') {
     jobName = JOB_BASE_NAME;
     initStage();
 	buildUIStage();
-	deployStage();
+	deployUIStage();
   } catch (Exception e) {
     echo "Exception caught: " + e.getMessage();
   }
@@ -32,7 +32,7 @@ node('Generic') {
  * Intialize stage.
 */
 def initStage() {
-  stageName = "Build Init $jobName";
+  stageName = "Init $jobName";
   stage("$stageName") {
     DisplayStageBanner(stageName);
     sh "whoami";
@@ -45,8 +45,8 @@ def initStage() {
 /*
  * Clone UI Stage.
 */
-def buildStage() {
-  stageName = "Clone UI"
+def buildUIStage() {
+  stageName = "Build UI"
   stage("$stageName") {
     DisplayStageBanner("$stageName");
 	
@@ -74,8 +74,8 @@ def buildStage() {
 /*
  * Deploy to webserver.
 */
-def deployStage() {
-  stageName = "Clone UI"
+def deployUIStage() {
+  stageName = "Deploy UI"
   stage("$stageName") {
     DisplayStageBanner("$stageName");
 	sh """
