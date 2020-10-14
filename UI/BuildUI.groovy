@@ -20,7 +20,8 @@ node('Generic') {
   try {
     jobName = JOB_BASE_NAME;
     initStage();
-	cloneUIStage();
+	buildUIStage();
+	deployStage(};
   } catch (Exception e) {
     echo "Exception caught: " + e.getMessage();
   }
@@ -34,15 +35,17 @@ def initStage() {
   stageName = "Build Init $jobName";
   stage("$stageName") {
     DisplayStageBanner(stageName);
-    sh "whoami"
+    sh "whoami"'
     env.PATH="$env.PATH:/opt/node-v12.19.0-linux-x64/bin";
+	ngnxDir="/usr/share/nginx";
   }
 }
+
 
 /*
  * Clone UI Stage.
 */
-def cloneUIStage() {
+def buildStage() {
   stageName = "Clone UI"
   stage("$stageName") {
     DisplayStageBanner("$stageName");
@@ -57,14 +60,28 @@ def cloneUIStage() {
    	  npm config set registry https://registry.npmjs.org
    	  
    	  rm -f package-lock.json || echo "cloneUIStage(): package-lock.json not found."
-      whoami
       
       npm cache clean --force
       npm install -g npm@latest
-      
-   	  npm install
-      
+      npm install
+	  
 	  npm run-script build
+	"""
+  }
+}
+
+
+/*
+ * Deploy to webserver.
+*/
+def deployStage() {
+  stageName = "Clone UI"
+  stage("$stageName") {
+    DisplayStageBanner("$stageName");
+	sh """
+	  mv $ngnxDir/html $nginxDir/htmlBackup
+	  mkdir -p $ngnxDir/html
+	  cp dist/* $ngnxDir/html
 	"""
   }
 }
