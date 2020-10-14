@@ -51,6 +51,7 @@ def cloneUIStage() {
 	
 	sh """
 	  pwd
+	  env
 	  ls -al
 	  touch .npmrc
    	  npm config set strict-ssl false
