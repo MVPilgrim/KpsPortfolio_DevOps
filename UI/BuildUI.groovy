@@ -19,8 +19,6 @@ import groovy.json.JsonSlurper
 node('Generic') {
   try {
     jobName = JOB_BASE_NAME;
-	ngnxDir="/usr/share/nginx";
-	
     initStage();
 	buildUIStage();
 	deployUIStage();
@@ -39,6 +37,7 @@ def initStage() {
     DisplayStageBanner(stageName);
     sh "whoami";
     env.PATH="$env.PATH:/opt/node-v12.19.0-linux-x64/bin";
+	ngnxDir="/usr/share/nginx";
   }
 }
 
@@ -80,7 +79,7 @@ def deployUIStage() {
   stage("$stageName") {
     DisplayStageBanner("$stageName");
 	sh """
-	  mv $ngnxDir/html $nginxDir/htmlBackup
+	  mv $ngnxDir/html $ngnxDir/htmlBackup
 	  mkdir -p $ngnxDir/html
 	  cp dist/* $ngnxDir/html
 	"""
