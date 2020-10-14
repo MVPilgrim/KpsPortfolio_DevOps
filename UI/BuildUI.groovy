@@ -35,7 +35,7 @@ def initStage() {
   stageName = "Build Init $jobName";
   stage("$stageName") {
     DisplayStageBanner(stageName);
-    sh "whoami"'
+    sh "whoami";
     env.PATH="$env.PATH:/opt/node-v12.19.0-linux-x64/bin";
 	ngnxDir="/usr/share/nginx";
   }
