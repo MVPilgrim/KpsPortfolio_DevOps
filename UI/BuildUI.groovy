@@ -79,8 +79,6 @@ def deployUIStage() {
   stage("$stageName") {
     DisplayStageBanner("$stageName");
 	sh """
-	  sudo bash
-	  whoami
 	  mv $ngnxDir/html $ngnxDir/htmlBackup
 	  mkdir -p $ngnxDir/html
 	  cp dist/* $ngnxDir/html
