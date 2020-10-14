@@ -35,7 +35,7 @@ def initStage() {
   stage("$stageName") {
     DisplayStageBanner(stageName);
     sh "whoami"
-    env.PATH="$env.PATH:/home/ec2-user/.nvm/versions/node/v11.0.0/bin";
+    env.PATH="$env.PATH:/opt/node-v12.19.0-linux-x64/bin";
   }
 }
 
@@ -51,7 +51,6 @@ def cloneUIStage() {
 	
 	sh """
 	  pwd
-	  env
 	  ls -al
 	  touch .npmrc
    	  npm config set strict-ssl false
