@@ -21,7 +21,7 @@ node('Generic') {
     jobName = JOB_BASE_NAME;
     initStage();
 	buildUIStage();
-	deployStage(};
+	deployStage();
   } catch (Exception e) {
     echo "Exception caught: " + e.getMessage();
   }
