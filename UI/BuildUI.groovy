@@ -20,8 +20,8 @@ node('Generic') {
   try {
     jobName = JOB_BASE_NAME;
     initStage();
-	buildUIStage();
-	deployUIStage();
+  	buildUIStage();
+  	deployUIStage();
   } catch (Exception e) {
     echo "Exception caught: " + e.getMessage();
   }
@@ -37,7 +37,7 @@ def initStage() {
     DisplayStageBanner(stageName);
     sh "whoami";
     env.PATH="$env.PATH:/opt/node-v12.19.0-linux-x64/bin";
-	ngnxDir="/usr/share/nginx";
+	  ngnxDir="/usr/share/nginx";
   }
 }
 
@@ -49,22 +49,22 @@ def buildUIStage() {
   stageName = "Build UI"
   stage("$stageName") {
     DisplayStageBanner("$stageName");
-	
+
 	git credentialsId: 'Github', url: 'https://github.com/MVPilgrim/KpsPortfolio_UI/';
-	
+
 	sh """
 	  pwd
 	  ls -al
 	  touch .npmrc
-   	  npm config set strict-ssl false
-   	  npm config set registry https://registry.npmjs.org
-   	  
-   	  rm -f package-lock.json || echo "cloneUIStage(): package-lock.json not found."
-      
-      npm cache clean --force
-      npm install -g npm@latest
-      npm install
-	  
+ 	  npm config set strict-ssl false
+ 	  npm config set registry https://registry.npmjs.org
+
+ 	  rm -f package-lock.json || echo "cloneUIStage(): package-lock.json not found."
+
+    npm cache clean --force
+    npm install -g npm@latest
+    npm install
+
 	  npm run-script build
 	"""
   }
