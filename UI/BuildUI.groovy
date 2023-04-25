@@ -54,6 +54,7 @@ def buildUIStage() {
 
     sh """
       pwd
+      ls -al
       npm run-script build
 	  """
   }
