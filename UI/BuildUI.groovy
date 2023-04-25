@@ -50,11 +50,9 @@ def buildUIStage() {
   stage("$stageName") {
     DisplayStageBanner("$stageName");
 
-    git credentialsId: 'Github', url: 'https://github.com/MVPilgrim/KpsPortfolio_UI/';
+    //git credentialsId: 'Github', url: 'https://github.com/MVPilgrim/KpsPortfolio_UI/';
 
     sh """
-	    #kpsWebsite=/home/ec2-user/KpsPortfolio/KpsPortfolio_Website
-      #cd $kpsWebsite
       pwd
       npm run-script build
 	  """
