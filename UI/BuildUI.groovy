@@ -20,8 +20,8 @@ node('Generic') {
   try {
     jobName = JOB_BASE_NAME;
     initStage();
-  	buildUIStage();
-  	deployUIStage();
+    buildUIStage();
+    deployUIStage();
   } catch (Exception e) {
     echo "Exception caught: " + e.getMessage();
   }
@@ -36,8 +36,8 @@ def initStage() {
   stage("$stageName") {
     DisplayStageBanner(stageName);
     sh "whoami";
-    env.PATH="$env.PATH:/opt/node-v12.19.0-linux-x64/bin";
-	  ngnxDir="/usr/share/nginx";
+    env.PATH="$env.PATH:/home/ec2-user/.nvm/versions/node/v16.20.0/bin/node";
+    ngnxDir="/usr/share/nginx";
   }
 }
 
@@ -50,23 +50,14 @@ def buildUIStage() {
   stage("$stageName") {
     DisplayStageBanner("$stageName");
 
-	git credentialsId: 'Github', url: 'https://github.com/MVPilgrim/KpsPortfolio_UI/';
+    git credentialsId: 'Github', url: 'https://github.com/MVPilgrim/KpsPortfolio_UI/';
 
-	sh """
-	  pwd
-	  ls -al
-	  touch .npmrc
- 	  npm config set strict-ssl false
- 	  npm config set registry https://registry.npmjs.org
-
- 	  rm -f package-lock.json || echo "cloneUIStage(): package-lock.json not found."
-
-    npm cache clean --force
-    npm install -g npm@latest
-    npm install
-
-	  npm run-script build
-	"""
+    sh """
+	    #kpsWebsite=/home/ec2-user/KpsPortfolio/KpsPortfolio_Website
+      #cd $kpsWebsite
+      pwd
+      npm run-script build
+	  """
   }
 }
 
@@ -78,10 +69,11 @@ def deployUIStage() {
   stageName = "Deploy UI"
   stage("$stageName") {
     DisplayStageBanner("$stageName");
-	sh """
-	  mv $ngnxDir/html $ngnxDir/htmlBackup
-	  mkdir -p $ngnxDir/html
-	  cp dist/* $ngnxDir/html
-	"""
+	  sh """
+	    nginxPath=/usr/share/nginx/html
+      sudo mkdir -p $nginxPath
+      sudo rm -f $nginxPath/*
+      sudo cp -r dist/* $nginxPath
+	  """
   }
 }
