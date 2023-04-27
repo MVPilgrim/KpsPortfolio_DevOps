@@ -51,6 +51,7 @@ def buildUIStage() {
     DisplayStageBanner("$stageName");
 
     //git credentialsId: 'Github', url: 'https://github.com/MVPilgrim/KpsPortfolio_UI/';
+    git url: 'https://github.com/MVPilgrim/KpsPortfolio_UI/'
 
     sh """
       pwd
