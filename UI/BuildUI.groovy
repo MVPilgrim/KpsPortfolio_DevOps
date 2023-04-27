@@ -36,7 +36,7 @@ def initStage() {
   stage("$stageName") {
     DisplayStageBanner(stageName);
     sh "whoami";
-    env.PATH="$env.PATH:/home/ec2-user/.nvm/versions/node/v16.20.0/bin/node";
+    env.PATH="/home/ec2-user/.nvm/versions/node/v16.20.0/bin/node:$env.PATH";
     ngnxDir="/usr/share/nginx";
   }
 }
@@ -49,15 +49,13 @@ def buildUIStage() {
   stageName = "Build UI"
   stage("$stageName") {
     DisplayStageBanner("$stageName");
-
     //git credentialsId: 'Github', url: 'https://github.com/MVPilgrim/KpsPortfolio_UI/';
     git url: 'https://github.com/MVPilgrim/KpsPortfolio_UI/'
-
     sh """
       pwd
       ls -al
       npm run-script build
-	  """
+    """
   }
 }
 
@@ -69,11 +67,11 @@ def deployUIStage() {
   stageName = "Deploy UI"
   stage("$stageName") {
     DisplayStageBanner("$stageName");
-	  sh """
-	    nginxPath=/usr/share/nginx/html
+    sh """
+      nginxPath=/usr/share/nginx/html
       sudo mkdir -p $nginxPath
       sudo rm -f $nginxPath/*
       sudo cp -r dist/* $nginxPath
-	  """
+    """
   }
 }
