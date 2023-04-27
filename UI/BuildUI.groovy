@@ -37,7 +37,7 @@ def initStage() {
     DisplayStageBanner(stageName);
     sh "whoami";
     env.PATH="PATH=/home/ec2-user/.nvm/versions/node/v16.20.0/bin:/opt/apache-maven-3.8.1/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/node-v12.19.0-linux-x64/bin:/usr/bin/ffmpeg:/home/ec2-user/.local/bin:/home/ec2-user/bin:$env.PATH";
-    ngnxDir="/usr/share/nginx";
+    ngnxPath="/usr/share/nginx/html";
   }
 }
 
@@ -68,7 +68,6 @@ def deployUIStage() {
   stage("$stageName") {
     DisplayStageBanner("$stageName");
     sh """
-      nginxPath=/usr/share/nginx/html
       sudo mkdir -p $nginxPath
       sudo rm -f $nginxPath/*
       sudo cp -r dist/* $nginxPath
