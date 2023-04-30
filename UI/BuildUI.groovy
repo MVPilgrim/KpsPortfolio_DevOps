@@ -55,15 +55,15 @@ def buildUIStage() {
 	sh """
 	  pwd
 	  ls -al
-	  touch .npmrc
- 	  npm config set strict-ssl false
- 	  npm config set registry https://registry.npmjs.org
+	  #touch .npmrc
+ 	  #npm config set strict-ssl false
+ 	  #npm config set registry https://registry.npmjs.org
 
  	  rm -f package-lock.json || echo "cloneUIStage(): package-lock.json not found."
 
-    npm cache clean --force
-    npm install -g npm@latest
-    npm install
+    #npm cache clean --force
+    #npm install -g npm@latest
+    #npm install
 
 	  npm run-script build
 	"""
