@@ -65,7 +65,7 @@ def buildUIStage() {
     #npm install -g npm@latest
     #npm install
 
-    chmod 755 node_modules/*
+    chmod 755 node_modules/.bin/*
 	  npm run-script build
 	"""
   }
