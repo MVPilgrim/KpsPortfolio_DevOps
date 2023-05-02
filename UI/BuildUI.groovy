@@ -80,7 +80,8 @@ def deployUIStage() {
   stage("$stageName") {
     DisplayStageBanner("$stageName");
 	sh """
-	  mv -f $ngnxDir/html $ngnxDir/htmlBackup
+    rm -rf $ngnxDir/htmlBackup/html
+	  mv $ngnxDir/html $ngnxDir/htmlBackup
 	  mkdir -p $ngnxDir/html
 	  cp dist/* $ngnxDir/html
 	"""
